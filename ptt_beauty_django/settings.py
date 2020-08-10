@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3y0ojtwokgq-z_l9%cq03!w2y8u7@$lwiol$fs6b^-cyc45%zo'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'image_tag_app'
 ]
 
 MIDDLEWARE = [
@@ -75,8 +78,15 @@ WSGI_APPLICATION = 'ptt_beauty_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'djongo',
+
+        # 這個 NAME 必須跟我們在 MongoDB
+        # 所創建的 database 名字一模一樣
+        'CLIENT': {
+            'host': os.getenv('MONGODB_HOST'),
+            'username': os.getenv('MONGODB_USERNAME'),
+            'password': os.getenv('MONGODB_PASSWORD'),
+        }
     }
 }
 

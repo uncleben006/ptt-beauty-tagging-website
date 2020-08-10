@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from image_tag_app import views as tag_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', tag_views.index)
 ]

@@ -1,2 +1,8 @@
 venv
 .idea
+.gitignore
+README.md
+LICENSE.txt
+.env
+bootstrap-4.0.0
+db.sqlite3
