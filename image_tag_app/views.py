@@ -19,7 +19,7 @@ def index(request):
         for tag in tags:
             if tag['tags'] is not None:
                 tags_list.extend(tag['tags'])
-    tags_list = list(set(tags_list))
+    tags_list = sorted(list(set(tags_list)), key = len)
 
     return render(request, 'app/index.html', {'tags': tags_list, 'page_obj': page_obj})
 
@@ -59,7 +59,7 @@ def post(request, slug):
             for tag in tags:
                 if tag['tags'] is not None:
                     tags_list.extend(tag['tags'])
-        tags_list = list(set(tags_list))
+        tags_list = sorted(list(set(tags_list)), key = len)
 
         return render(request, 'app/post.html', {'data': data, 'tags': tags_list, 'slug': slug})
 
