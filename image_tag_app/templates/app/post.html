@@ -66,9 +66,7 @@
                 <h3>Tags pool</h3>
                 {% if tags %}
                     {% for tag in tags %}
-                        {%  for t in tag.tags %}
-                            <button type="button" class="tag btn btn-sm btn-outline-secondary">{{ t }}</button>
-                        {% endfor %}
+                        <button type="button" class="tag btn btn-sm btn-outline-secondary">{{ tag }}</button>
                     {% endfor %}
                 {% endif %}
             </div>
