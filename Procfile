@@ -1,1 +1,1 @@
-web gunicorn main:app
+web gunicorn ptt_beauty_django.wsgi
