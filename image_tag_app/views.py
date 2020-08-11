@@ -2,13 +2,14 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import Data
 from django.core.paginator import Paginator
 
+
 # Create your views here.
 def index(request):
     datas = Data.objects.filter().values()
     taggers = Data.objects.filter().values('taggers')
     tags = Data.objects.filter().values('tags')
 
-    paginator = Paginator(datas, 15) # Show 15 posts per page.
+    paginator = Paginator(datas, 15)  # Show 15 posts per page.
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -22,6 +23,9 @@ def index(request):
 
     return render(request, 'app/index.html', {'tags': tags_list, 'page_obj': page_obj})
 
+
+def data(request, slug):
+    return HttpResponse(Data.objects.filter(slug__contains = slug).values())
 
 def post(request, slug):
     if request.method == 'POST':
@@ -43,10 +47,11 @@ def post(request, slug):
 
         Data.objects.filter(slug__contains = slug).update(taggers = ppt_post.taggers)
         Data.objects.filter(slug__contains = slug).update(tags = ppt_post.tags)
-        return HttpResponse(Data.objects.filter(slug__contains = slug).values())
+        # return HttpResponse(Data.objects.filter(slug__contains = slug).values())
+        return redirect('/post/' + slug)
 
     if request.method == 'GET':
-        datas = Data.objects.filter(slug__contains = slug).values()
+        data = Data.objects.filter(slug__contains = slug).values()[0]
         tags = Data.objects.filter().values('tags')
 
         # 把 tag 轉成 distinct
@@ -57,11 +62,18 @@ def post(request, slug):
                     tags_list.extend(tag['tags'])
         tags_list = list(set(tags_list))
 
-        return render(request, 'app/post.html', {'datas': datas, 'tags': tags_list, 'slug': slug })
+        return render(request, 'app/post.html', {'data': data, 'tags': tags_list, 'slug': slug})
+
 
 def delete_img(request, slug, img):
     imgs = Data.objects.filter(slug__contains = slug).values('imgs')[0]['imgs']
     img = imgs.pop(int(img))
     Data.objects.filter(slug__contains = slug).update(imgs = imgs)
-    # HttpResponse(img+'has been removed,\n\ncurrent imgs: '+str(imgs))
-    return redirect('/post/'+slug)
+    return redirect('/post/' + slug)
+
+
+def delete_tag(request, slug, tag):
+    tags = Data.objects.filter(slug__contains = slug).values('tags')[0]['tags']
+    tag = tags.pop(int(tag))
+    Data.objects.filter(slug__contains = slug).update(tags = tags)
+    return redirect('/post/' + slug)

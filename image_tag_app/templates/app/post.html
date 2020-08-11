@@ -60,20 +60,18 @@
 
 <main role="main">
 
+    <div class="container">
     <div class="row justify-content-center my-5">
         <div class="col-lg-8 border py-5">
             <div class="text-center">
                 <h3>Tags pool</h3>
                 {% if tags %}
                     {% for tag in tags %}
-                        <button type="button" class="tag btn btn-sm btn-outline-secondary">{{ tag }}</button>
+                        <button type="button" class="tag btn btn-sm btn-outline-secondary my-1">{{ tag }}</button>
                     {% endfor %}
                 {% endif %}
             </div>
         </div>
-    </div>
-
-    <div class="row justify-content-center my-5">
         <div class="col-lg-4">
             <div>
                 <form action="{{ request.get_full_path }}" method="post">
@@ -81,6 +79,7 @@
                     <div class="form-row">
                         <div class="col">
                             <input id="tags" name="tags" type="text" class="form-control" placeholder="Tag name" required>
+                            <small class="text-muted">以空格分開標籤</small>
                         </div>
                     </div>
                     <div class="form-row my-3">
@@ -88,14 +87,14 @@
                             <div class="form-group">
                                 <select class="form-control" name="taggers" id="taggers" required>
                                     <option></option>                                    　
-                                    <option value="0">王柏元</option>
-                                    <option value="1">蔡睿陞</option>　
-                                    <option value="2">林佑澤</option>                                    　
-                                    <option value="3">徐唯傑</option>
-                                    <option value="4">廖崢圯</option>
-                                    <option value="5">杜博文</option>
-                                    <option value="6">蕭英桀</option>
-                                    <option value="7">盧夷希</option>
+                                    <option value="王柏元">王柏元</option>
+                                    <option value="蔡睿陞">蔡睿陞</option>　
+                                    <option value="林佑澤">林佑澤</option>                                    　
+                                    <option value="徐唯傑">徐唯傑</option>
+                                    <option value="廖崢圯">廖崢圯</option>
+                                    <option value="杜博文">杜博文</option>
+                                    <option value="蕭英桀">蕭英桀</option>
+                                    <option value="盧夷希">盧夷希</option>
                                 </select>
                             </div>
 {#                            <input name="taggers" type="text" class="form-control" placeholder="Tagger name" required>#}
@@ -106,23 +105,46 @@
             </div>
         </div>
     </div>
-
+    </div>
 
 
     <div class="album py-5 bg-light">
         <div class="container">
 
+            <div class="row pb-5">
+                <div class="col-lg-7">
+                    <span>{{ data.title }}</span>
+                </div>
+                <div class="col-lg-2 text-right">
+                    {% if data.taggers %}
+                        <span>
+                            <div class="pb-3">有誰標過</div>
+                            {% for tagger in data.taggers %}
+                               <span>{{tagger}}</span>
+                            {% endfor %}
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="col-lg-3 text-right">
+                    {% if data.tags %}
+                        <span>
+                            <div class="pb-3">大家下過的標籤</div>
+                            {% for tag in data.tags %}
+                               <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ tag }} 標籤？')" type="button" class="tag btn btn-sm btn-outline-danger">{{ tag }}</a>
+                            {% endfor %}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
             <div class="row">
 
-
-                {% for data in datas %}
 
                     {% for img in data.imgs %}
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
                                 <img src="{{ img }}" class="card-img-top border" alt="Card image cap">
-                                <a href="{{ img }}" class="py-3">{{ img }}</a>
-                                <a href="/post/delete/{{ slug }}/{{ forloop.counter0 }}" class="btn btn-danger">Delete this image</a>
+                                <a href="{{ img }}" class="text-center py-3">{{ img }}</a>
+                                <a href="/img/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ img }} 圖片？')" class="btn btn-danger">Delete this image</a>
                             </div>
                         </div>
                     {% endfor %}
@@ -134,8 +156,6 @@
                             </div>
                     {% endfor %}
                     </div>
-
-                {% endfor %}
 
             </div>
         </div>

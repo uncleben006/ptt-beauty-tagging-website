@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', tag_views.index),
     path('post/<str:slug>/', tag_views.post),
-    path('post/delete/<str:slug>/<str:img>/', tag_views.delete_img)
+    path('data/<str:slug>/', tag_views.data),
+    path('img/delete/<str:slug>/<str:img>/', tag_views.delete_img),
+    path('tag/delete/<str:slug>/<str:tag>/', tag_views.delete_tag)
 ]
