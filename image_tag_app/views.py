@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .models import Data
 from django.core.paginator import Paginator
 
@@ -54,4 +54,11 @@ def post(request, slug):
                 if tag['tags'] is not None:
                     tag['tags'] = list(set(tag['tags']))
 
-        return render(request, 'app/post.html', {'datas': datas, 'tags': tags })
+        return render(request, 'app/post.html', {'datas': datas, 'tags': tags, 'slug': slug })
+
+def delete_img(request, slug, img):
+    imgs = Data.objects.filter(slug__contains = slug).values('imgs')[0]['imgs']
+    img = imgs.pop(int(img))
+    Data.objects.filter(slug__contains = slug).update(imgs = imgs)
+    # HttpResponse(img+'has been removed,\n\ncurrent imgs: '+str(imgs))
+    return redirect('/post/'+slug)

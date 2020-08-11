@@ -109,9 +109,10 @@
                     {% for img in data.imgs %}
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
-                                <img src="{{ img }}" class="card-img-top" alt="Card image cap">
+                                <img src="{{ img }}" class="card-img-top border" alt="Card image cap">
+                                <a href="{{ img }}" class="py-3">{{ img }}</a>
+                                <a href="/post/delete/{{ slug }}/{{ forloop.counter0 }}" class="btn btn-danger">Delete this image</a>
                             </div>
-                            <a href="{{ img }}">{{ img }}</a>
                         </div>
                     {% endfor %}
 
