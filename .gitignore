@@ -1,4 +1,6 @@
 venv
+data-short.json
+data.json
 .idea
 .gitignore
 README.md
@@ -6,3 +8,4 @@ LICENSE.txt
 .env
 bootstrap-4.0.0
 db.sqlite3
+__pycache__

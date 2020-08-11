@@ -19,5 +19,6 @@ from image_tag_app import views as tag_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', tag_views.index)
+    path('', tag_views.index),
+    path('post/<str:slug>', tag_views.post)
 ]

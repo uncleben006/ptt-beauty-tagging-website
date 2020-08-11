@@ -79,6 +79,7 @@ WSGI_APPLICATION = 'ptt_beauty_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'NAME': 'beauty',
 
         # 這個 NAME 必須跟我們在 MongoDB
         # 所創建的 database 名字一模一樣
