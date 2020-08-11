@@ -97,10 +97,9 @@
                                     <option value="盧夷希">盧夷希</option>
                                 </select>
                             </div>
-{#                            <input name="taggers" type="text" class="form-control" placeholder="Tagger name" required>#}
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button onclick="return confirm('確定要上傳此標籤？')" type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -113,7 +112,8 @@
 
             <div class="row pb-5">
                 <div class="col-lg-7">
-                    <span>{{ data.title }}</span>
+                    <div>標題：{{ data.title }}</div>
+                    <div>作者：{{ data.author }}</div>
                 </div>
                 <div class="col-lg-2 text-right">
                     {% if data.taggers %}
@@ -130,7 +130,7 @@
                         <span>
                             <div class="pb-3">大家下過的標籤</div>
                             {% for tag in data.tags %}
-                               <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ tag }} 標籤？')" type="button" class="tag btn btn-sm btn-outline-danger">{{ tag }}</a>
+                               <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ tag }} 標籤？')" type="button" class="tag btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
                             {% endfor %}
                         </span>
                     {% endif %}

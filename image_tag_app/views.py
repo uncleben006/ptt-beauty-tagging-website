@@ -45,9 +45,8 @@ def post(request, slug):
         for tag in tags:
             ppt_post.tags.append(tag)
 
-        Data.objects.filter(slug__contains = slug).update(taggers = ppt_post.taggers)
+        Data.objects.filter(slug__contains = slug).update(taggers = list(set(ppt_post.taggers)))
         Data.objects.filter(slug__contains = slug).update(tags = ppt_post.tags)
-        # return HttpResponse(Data.objects.filter(slug__contains = slug).values())
         return redirect('/post/' + slug)
 
     if request.method == 'GET':
