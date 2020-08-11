@@ -7,3 +7,4 @@ python-dotenv==0.14.0
 pytz==2020.1
 sqlparse==0.2.4
 gunicorn
+whitenoise
