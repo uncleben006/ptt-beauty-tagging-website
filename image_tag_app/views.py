@@ -25,7 +25,9 @@ def index(request):
 
 
 def data(request, slug):
+    # return HttpResponse()
     return HttpResponse(Data.objects.filter(slug__contains = slug).values())
+
 
 def post(request, slug):
     if request.method == 'POST':
@@ -45,8 +47,17 @@ def post(request, slug):
         for tag in tags:
             ppt_post.tags.append(tag)
 
+        # 標籤平均分數 = 標籤數量 / 標籤總數
+        # 當標籤數量小於等於 10 的時候
+        if len(ppt_post.tags) <= 10:
+            tags_average = {tag: ppt_post.tags.count(tag) / 10 for tag in ppt_post.tags}
+            tags_average['低關注'] = (10 - len(ppt_post.tags)) / 10
+        else:
+            tags_average = {tag: ppt_post.tags.count(tag) / len(ppt_post.tags) for tag in ppt_post.tags}
+
         Data.objects.filter(slug__contains = slug).update(taggers = list(set(ppt_post.taggers)))
         Data.objects.filter(slug__contains = slug).update(tags = ppt_post.tags)
+        Data.objects.filter(slug__contains = slug).update(tags_average = tags_average)
         return redirect('/post/' + slug)
 
     if request.method == 'GET':

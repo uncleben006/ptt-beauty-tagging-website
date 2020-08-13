@@ -113,28 +113,40 @@
 
             <div class="row pb-5">
                 <div class="col-lg-7">
-                    <div>標題：{{ data.title }}</div>
-                    <div>作者：{{ data.author }}</div>
+                    <div><b>標題：{{ data.title }}</b></div>
+                    <div><b>作者：{{ data.author }}</b></div>
+                </div>
+                <div class="col-lg-3 text-right my-3 my-lg-0">
+                    {% if data.tags_average %}
+                        <div>
+                            <div class="pb-3"><b>標籤分數</b></div>
+                            {% for key, value in data.tags_average.items %}
+                               <div>{{ key }}: {{ value }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col-lg-2 text-right">
-                    {% if data.taggers %}
-                        <span>
-                            <div class="pb-3">有誰標過</div>
-                            {% for tagger in data.taggers %}
-                               <span>{{tagger}}</span>
-                            {% endfor %}
-                        </span>
-                    {% endif %}
-                </div>
-                <div class="col-lg-3 text-right">
-                    {% if data.tags %}
-                        <span>
-                            <div class="pb-3">大家下過的標籤</div>
-                            {% for tag in data.tags %}
-                               <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ tag }} 標籤？')" type="button" class="tag btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
-                            {% endfor %}
-                        </span>
-                    {% endif %}
+                    <div>
+                        {% if data.taggers %}
+                            <span>
+                                <div class="pb-3"><b>誰標過</b></div>
+                                {% for tagger in data.taggers %}
+                                   <span><u>{{tagger}}</u></span>
+                                {% endfor %}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="py-3">
+                        {% if data.tags %}
+                            <span>
+                                <div class="pb-3"><b>大家下過的標籤</b></div>
+                                {% for tag in data.tags %}
+                                   <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ tag }} 標籤？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
+                                {% endfor %}
+                            </span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             <div class="row">
