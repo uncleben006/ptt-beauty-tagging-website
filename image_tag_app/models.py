@@ -15,6 +15,8 @@ class Data(models.Model):
     comments = models.JSONField()
     tags = models.JSONField()
     tags_average = models.JSONField(default = {})
+    title_tags = models.JSONField()
+    title_tags_average = models.JSONField()
     taggers = models.JSONField()
 
     def __str__(self):

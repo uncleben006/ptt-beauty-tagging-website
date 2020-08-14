@@ -76,13 +76,23 @@
 
     <div class="container">
 
-    <div class="row justify-content-center my-5">
-        <div class="col-lg-8 border py-5">
-            <div class="text-center">
-                <h3>Tags pool</h3>
+    <div class="row justify-content-between my-5">
+        <div class="col-lg-6 my-3">
+            <div class="text-center py-5 border">
+                <h3>Tags Pool</h3>
                 {% if tags %}
                     {% for tag in tags %}
                         <button type="button" class="btn btn-sm btn-outline-secondary">{{ tag }}</button>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-6 my-3">
+            <div class="text-center py-5 border">
+                <h3>Title Tags Pool</h3>
+                {% if title_tags %}
+                    {% for title_tag in title_tags %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary">{{ title_tag }}</button>
                     {% endfor %}
                 {% endif %}
             </div>

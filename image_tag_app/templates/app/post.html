@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Beauty Tag</title>
+    <title>{{ data.title }}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -62,46 +62,84 @@
 
     <div class="container">
     <div class="row justify-content-center my-5">
-        <div class="col-lg-8 border py-5">
-            <div class="text-center">
-                <h3>Tags pool</h3>
+        <div class="col-lg-6 my-3">
+            <div class="text-center py-5 border">
+                <h3>Tags Pool</h3>
                 {% if tags %}
                     {% for tag in tags %}
                         <button type="button" class="tag btn btn-sm btn-outline-secondary my-1">{{ tag }}</button>
                     {% endfor %}
                 {% endif %}
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div>
-                <form action="{{ request.get_full_path }}" method="post">
-                    {% csrf_token %}
-                    <div class="form-row">
-                        <div class="col">
-                            <input id="tags" name="tags" type="text" class="form-control" placeholder="Tag name" required>
-                            <small class="text-muted">以空格分開標籤</small>
-                        </div>
-                    </div>
-                    <div class="form-row my-3">
-                        <div class="col">
-                            <div class="form-group">
-                                <select class="form-control" name="taggers" id="taggers" required>
-                                    <option></option>                                    　
-                                    <option value="王柏元">王柏元</option>
-                                    <option value="蔡睿陞">蔡睿陞</option>　
-                                    <option value="林佑澤">林佑澤</option>                                    　
-                                    <option value="徐唯傑">徐唯傑</option>
-                                    <option value="廖崢圯">廖崢圯</option>
-                                    <option value="杜博文">杜博文</option>
-                                    <option value="蕭英桀">蕭英桀</option>
-                                    <option value="盧夷希">盧夷希</option>
-                                    <option value="陳泳蓉">陳泳蓉</option>
-                                </select>
+                <div class="container mt-3">
+                    <form action="{{ request.get_full_path }}" method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col">
+                                <input id="tags" name="tags" type="text" class="form-control" placeholder="Tag name" required>
+                                <small class="text-muted">以空格分開標籤</small>
                             </div>
                         </div>
-                    </div>
-                    <button onclick="return confirm('確定要上傳此標籤？')" type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                        <div class="form-row mt-3">
+                            <div class="col">
+                                <div class="form-group">
+                                    <select class="form-control" name="taggers" required>
+                                        <option></option>                                    　
+                                        <option value="王柏元">王柏元</option>
+                                        <option value="蔡睿陞">蔡睿陞</option>　
+                                        <option value="林佑澤">林佑澤</option>                                    　
+                                        <option value="徐唯傑">徐唯傑</option>
+                                        <option value="廖崢圯">廖崢圯</option>
+                                        <option value="杜博文">杜博文</option>
+                                        <option value="蕭英桀">蕭英桀</option>
+                                        <option value="盧夷希">盧夷希</option>
+                                        <option value="陳泳蓉">陳泳蓉</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="return confirm('確定要上傳此圖片標籤？')" type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 my-3">
+            <div class="text-center py-5 border">
+                <h3>Title Tags Pool</h3>
+                {% if title_tags %}
+                    {% for title_tag in title_tags %}
+                        <button type="button" class="title_tag btn btn-sm btn-outline-secondary my-1">{{ title_tag }}</button>
+                    {% endfor %}
+                {% endif %}
+                <div class="container mt-3">
+                    <form action="/title/{{ slug }}/" method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col">
+                                <input id="title_tags" name="tags" type="text" class="form-control" placeholder="Tag name" required>
+                                <small class="text-muted">以空格分開標籤</small>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="col">
+                                <div class="form-group">
+                                    <select class="form-control" name="taggers" required>
+                                        <option></option>                                    　
+                                        <option value="王柏元">王柏元</option>
+                                        <option value="蔡睿陞">蔡睿陞</option>　
+                                        <option value="林佑澤">林佑澤</option>                                    　
+                                        <option value="徐唯傑">徐唯傑</option>
+                                        <option value="廖崢圯">廖崢圯</option>
+                                        <option value="杜博文">杜博文</option>
+                                        <option value="蕭英桀">蕭英桀</option>
+                                        <option value="盧夷希">盧夷希</option>
+                                        <option value="陳泳蓉">陳泳蓉</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="return confirm('確定要上傳此標題標籤？')" type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -110,47 +148,71 @@
 
     <div class="album py-5 bg-light">
         <div class="container">
-
             <div class="row pb-5">
-                <div class="col-lg-7">
-                    <div><b>標題：{{ data.title }}</b></div>
-                    <div><b>作者：{{ data.author }}</b></div>
-                </div>
-                <div class="col-lg-3 text-right my-3 my-lg-0">
-                    {% if data.tags_average %}
-                        <div>
-                            <div class="pb-3"><b>標籤分數</b></div>
-                            {% for key, value in data.tags_average.items %}
-                               <div>{{ key }}: {{ value }}</div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="col-lg-2 text-right">
-                    <div>
+
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <div class="border p-3 h-100">
+                        <div><b>標題</b>：{{ data.title }}</div>
+                        <div><b>作者</b>：{{ data.author }}</div>
                         {% if data.taggers %}
-                            <span>
-                                <div class="pb-3"><b>誰標過</b></div>
+                            <div class="pt-3">
+                                <div><b>誰標過</b></div>
                                 {% for tagger in data.taggers %}
                                    <span><u>{{tagger}}</u></span>
                                 {% endfor %}
-                            </span>
+                            </div>
                         {% endif %}
                     </div>
-                    <div class="py-3">
-                        {% if data.tags %}
-                            <span>
-                                <div class="pb-3"><b>大家下過的標籤</b></div>
-                                {% for tag in data.tags %}
-                                   <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ tag }} 標籤？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
+                </div>
+
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <div class="border p-3 h-100">
+                        <div><b>標題標籤</b></div>
+                        {% if data.title_tags_average %}
+                            <div class="py-3">
+                                <div><b>平均分數</b></div>
+                                {% for key, value in data.title_tags_average.items %}
+                                   <div>{{ key }}: {{ value }}</div>
                                 {% endfor %}
-                            </span>
+                            </div>
+                        {% endif %}
+
+                        {% if data.title_tags %}
+                            <div>
+                                <div><b>此篇文章標籤</b></div>
+                                {% for tag in data.title_tags %}
+                                   <a href="/title_tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要從 標題標籤 刪除「 {{ tag }} 」？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-4 my-3 my-lg-0">
+                    <div class="border p-3 h-100">
+                        <div><b>圖片標籤</b></div>
+                        {% if data.tags_average %}
+                            <div class="py-3">
+                                <div><b>平均分數</b></div>
+                                {% for key, value in data.tags_average.items %}
+                                   <div>{{ key }}: {{ value }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if data.tags %}
+                            <div>
+                                <div><b>此篇文章標籤</b></div>
+                                {% for tag in data.tags %}
+                                   <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要從 圖片標籤 刪除「 {{ tag }} 」？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
+                                {% endfor %}
+                            </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="row">
 
+            <div class="row">
 
                     {% for img in data.imgs %}
                         <div class="col-md-4">
@@ -202,6 +264,12 @@
     $(".tag").click(function () {
         var tag = ' '+$(this).text();
         $("#tags").val(function() {
+            return $.trim(this.value + tag);
+        });
+    });
+    $(".title_tag").click(function () {
+        var tag = ' '+$(this).text();
+        $("#title_tags").val(function() {
             return $.trim(this.value + tag);
         });
     });
