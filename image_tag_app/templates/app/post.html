@@ -217,7 +217,7 @@
                     {% for img in data.imgs %}
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
-                                <img src="{{ img }}" class="card-img-top border" alt="Card image cap">
+                                <img src="{{ img }}" class="lazyload card-img-top border" alt="Card image cap">
                                 <a href="{{ img }}" class="text-center py-3">{{ img }}</a>
                                 <a href="/img/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ img }} 圖片？')" class="btn btn-danger">Delete this image</a>
                             </div>
@@ -259,6 +259,7 @@
 <script src="{% static '/js/popper.min.js' %}"></script>
 <script src="{% static '/js/bootstrap.min.js' %}"></script>
 <script src="{% static '/js/holder.min.js' %}"></script>
+<script src="{% static '/js/lazysizes.min.js.min.js' %}"></script>
 
 <script>
     $(".tag").click(function () {
