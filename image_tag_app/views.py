@@ -17,7 +17,7 @@ def index(request):
     tags_list = tags_distinct(tags)
     title_tags_list = tags_distinct(title_tags)
 
-    return render(request, 'app/index.html', {'tags': tags_list, 'title_tags': title_tags_list, 'page_obj': page_obj})
+    return render(request, 'app/index.html', {'tags': tags_list, 'title_tags': title_tags_list, 'page_obj': page_obj, 'page_number': page_number})
 
 
 def data(request, slug):
@@ -40,8 +40,11 @@ def post(request, slug):
         tags_list = tags_distinct(tags)
         title_tags_list = tags_distinct(title_tags)
 
+        # 取得頁編號
+        page_number = request.GET.get('page')
+
         return render(request, 'app/post.html',
-                      {'data': data, 'tags': tags_list, 'title_tags': title_tags_list, 'slug': slug})
+                      {'data': data, 'tags': tags_list, 'title_tags': title_tags_list, 'slug': slug, 'page_number': page_number})
 
 
 def post_title(request, slug):
