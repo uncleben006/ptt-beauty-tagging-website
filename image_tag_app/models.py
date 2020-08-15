@@ -10,14 +10,14 @@ class Data(models.Model):
     slug = models.CharField(max_length = 256)
     post_time = models.CharField(max_length = 256)
     push = models.CharField(max_length = 8)
-    imgs = models.JSONField()
+    imgs = models.JSONField(default = [])
     author = models.CharField(max_length = 256)
-    comments = models.JSONField()
-    tags = models.JSONField()
+    comments = models.JSONField(default = [])
+    tags = models.JSONField(default = {})
     tags_average = models.JSONField(default = {})
-    title_tags = models.JSONField()
-    title_tags_average = models.JSONField()
-    taggers = models.JSONField()
+    title_tags = models.JSONField(default = [])
+    title_tags_average = models.JSONField(default = {})
+    taggers = models.JSONField(default = [])
 
     def __str__(self):
         return self.title + ' | ' + self.author + ' | ' + self.post_time + ' | ' + self.slug + ')'

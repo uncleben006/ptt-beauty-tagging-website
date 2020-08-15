@@ -33,8 +33,8 @@ def post(request, slug):
 
     if request.method == 'GET':
         data = Data.objects.filter(slug__contains = slug).values()[0]
-        tags = Data.objects.filter().values('tags')
-        title_tags = Data.objects.filter().values('title_tags')
+        tags = Data.objects.filter(tags__isnull=False).values('tags')
+        title_tags = Data.objects.filter(title_tags__isnull=False).values('title_tags')
 
         # 把 tag 轉成 distinct
         tags_list = tags_distinct(tags)
