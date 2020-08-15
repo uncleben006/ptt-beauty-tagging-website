@@ -29,7 +29,8 @@ def post(request, slug):
     if request.method == 'POST':
         # return HttpResponse('hi')
         store_tag_taggers_tags_average(request, slug, 'tags')
-        return redirect('/post/' + slug)
+        page_number = request.GET.get('page')
+        return redirect('/post/' + slug + '/?page=' + page_number)
 
     if request.method == 'GET':
         data = Data.objects.filter(slug__contains = slug).values()[0]
@@ -40,7 +41,6 @@ def post(request, slug):
         tags_list = tags_distinct(tags)
         title_tags_list = tags_distinct(title_tags)
 
-        # 取得頁編號
         page_number = request.GET.get('page')
 
         return render(request, 'app/post.html',
@@ -50,14 +50,16 @@ def post(request, slug):
 def post_title(request, slug):
     if request.method == 'POST':
         store_tag_taggers_tags_average(request, slug, 'title_tags')
-        return redirect('/post/' + slug)
+        page_number = request.GET.get('page')
+        return redirect('/post/' + slug + '/?page=' + page_number)
 
 
 def delete_img(request, slug, img):
     imgs = Data.objects.filter(slug__contains = slug).values('imgs')[0]['imgs']
     img = imgs.pop(int(img))
     Data.objects.filter(slug__contains = slug).update(imgs = imgs)
-    return redirect('/post/' + slug)
+    page_number = request.GET.get('page')
+    return redirect('/post/' + slug + '/?page=' + page_number)
 
 
 def delete_tag(request, slug, tag):
@@ -67,7 +69,8 @@ def delete_tag(request, slug, tag):
 
     Data.objects.filter(slug__contains = slug).update(tags = tags)
     Data.objects.filter(slug__contains = slug).update(tags_average = tags_average)
-    return redirect('/post/' + slug)
+    page_number = request.GET.get('page')
+    return redirect('/post/' + slug + '/?page=' + page_number)
 
 
 def delete_title_tag(request, slug, tag):
@@ -77,7 +80,8 @@ def delete_title_tag(request, slug, tag):
 
     Data.objects.filter(slug__contains = slug).update(title_tags = title_tags)
     Data.objects.filter(slug__contains = slug).update(title_tags_average = tags_average)
-    return redirect('/post/' + slug)
+    page_number = request.GET.get('page')
+    return redirect('/post/' + slug + '/?page=' + page_number)
 
 
 # 取標籤平均分數 ( 標籤數量 / 標籤總數 )

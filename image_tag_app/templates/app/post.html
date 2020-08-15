@@ -54,7 +54,7 @@
                     {% endfor %}
                 {% endif %}
                 <div class="container mt-3">
-                    <form action="/title/{{ slug }}/" method="post">
+                    <form action="/title/{{ slug }}/?page={{ page_number }}" method="post">
                         {% csrf_token %}
                         <div class="form-row">
                             <div class="col">
@@ -123,7 +123,7 @@
                             <div>
                                 <div><b>此篇文章標籤</b></div>
                                 {% for tag in data.title_tags %}
-                                   <a href="/title_tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要從 標題標籤 刪除「 {{ tag }} 」？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
+                                   <a href="/title_tag/delete/{{ slug }}/{{ forloop.counter0 }}/?page={{ page_number }}" onclick="return confirm('確定要從 標題標籤 刪除「 {{ tag }} 」？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -146,7 +146,7 @@
                             <div>
                                 <div><b>此篇文章標籤</b></div>
                                 {% for tag in data.tags %}
-                                   <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要從 圖片標籤 刪除「 {{ tag }} 」？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
+                                   <a href="/tag/delete/{{ slug }}/{{ forloop.counter0 }}/?page={{ page_number }}" onclick="return confirm('確定要從 圖片標籤 刪除「 {{ tag }} 」？')" type="button" class="btn btn-sm btn-outline-danger my-1">{{ tag }}</a>
                                 {% endfor %}
                             </div>
                         {% endif %}
@@ -161,7 +161,7 @@
                             <div class="card mb-4 box-shadow">
                                 <img src="{{ img }}" class="lazyload card-img-top border" alt="Card image cap">
                                 <a href="{{ img }}" class="text-center py-3">{{ img }}</a>
-                                <a href="/img/delete/{{ slug }}/{{ forloop.counter0 }}" onclick="return confirm('確定要刪除 {{ img }} 圖片？')" class="btn btn-danger">Delete this image</a>
+                                <a href="/img/delete/{{ slug }}/{{ forloop.counter0 }}/?page={{ page_number }}" onclick="return confirm('確定要刪除 {{ img }} 圖片？')" class="btn btn-danger">Delete this image</a>
                             </div>
                         </div>
                     {% endfor %}
